@@ -1,32 +1,27 @@
 main = return ()
 
 --ex1a
-customOr1 :: Bool -> Bool -> Bool
-customOr1 _ True = True
-customOr1 True _ = True
-customOr1 _ _ = False
+(||) ::Bool->Bool->Bool
+False || False = False
+True || True = True
+False || True = True
+True || False = True
 
-customOr2 :: Bool -> Bool -> Bool
-customOr2 True True = True
-customOr2 True False = True
-customOr2 False True = True
-customOr2 False False = False
+(||) ::Bool->Bool->Bool
+False || False = False
+_|| _  = True
 
-customOr3 :: Bool -> Bool -> Bool
-customOr3 True _ = True
-customOr3 False b = b
+(||) ::Bool->Bool->Bool
+False || b = b
+True  || _ = True
 
-customOr4 :: Bool -> Bool -> Bool
-customOr4 bool1 bool2
-    | bool1 == True = True
-    | bool2 == True = True
-    | otherwise     = False
+ou::Bool->Bool->Bool
+ou (x,y)
+ |x == False || y == False = False
+ |otherwise = True
 
-
-customOr5 :: Bool -> Bool -> Bool
-customOr5 bool1 bool2
-    | bool1 == False && bool2 == False = False
-    | otherwise                        = True
+ou (x,y) = if x == False || y == False then False
+          else True
  
 --ex2
 type Data = (Float,Float)
