@@ -1,6 +1,6 @@
 main = return ()
 
---ex1a
+--ex1
 (||) ::Bool->Bool->Bool
 False || False = False
 True || True = True
