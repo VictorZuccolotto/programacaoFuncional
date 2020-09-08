@@ -1,4 +1,4 @@
---DUPLA : Vinnicius Pereira e Vitor Borges
+--DUPLA : Vinnicius Pereira e Vitor Borges Zuccolotto
 --1-
 triangulo :: (Int, Int, Int) -> String
 triangulo (x, y, z)
