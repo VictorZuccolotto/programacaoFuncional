@@ -1,0 +1,63 @@
+
+main = return ()
+
+--Ex2
+quadrados :: Int -> Int -> [Int]
+quadrados x y = [a*a | a <- [x..y]]
+
+--Ex3
+seleciona_impares :: Int -> Int -> [Int]
+seleciona_impares x y = [a | a <- [x..y], mod a 2 /= 0]
+
+--Ex4
+tabuada :: Int -> [Int]
+tabuada x = [a | a <- [x..x*10], mod a x == 0]
+
+--Ex5
+lista_bissexto :: [Int] -> [Int]
+lista_bissexto x = [a | a <- x, bissexto a == True] 
+
+
+bissexto::Int->Bool
+bissexto x
+  |mod x 4 == 0 && mod x 100 /= 0 = True
+  |mod x 4 == 0 && mod x 100 == 0 && mod x 400 == 0 = True
+  |otherwise = False
+
+--Ex 6
+sublistas :: [[Int]] -> [Int]
+sublistas y =  [a | x <- y, a<-x]
+
+--Ex7
+
+--Ex8
+npares :: [Int] -> Int
+npares [] = 0
+npares (x:xs)
+  |mod x 2 == 0 = 1 + (npares xs)
+  |otherwise = (npares xs)
+
+--Ex9
+produto :: [Int] -> Int
+produto [x] = x
+produto (x:xs) = x * (produto xs)
+
+--Ex10
+comprime::[[Int]]->[Int]
+comprime [[]] = [] 
+comprime [[x]] = [x]
+comprime (x:xs) = x++(comprime xs)
+
+--Ex11
+tamanho :: [a] -> Int
+tamanho [] = 0
+tamanho (x:xs) = 1 + (tamanho xs)
+
+--Ex12
+uniaoNRec :: [Int] -> [Int] ->[Int]
+uniaoNRec (x:xs) ys = (x:xs) ++ [y | y <- ys, elem y (x:xs) == False]
+
+--Ex13
+uniaoNRec2 :: Eq a => [a] -> [a] -> [a]
+uniaoNRec2 x (y:ys) = if elem y x then (uniaoNRec2 x ys)
+else (uniaoNRec2 (x++[y]) ys) 
