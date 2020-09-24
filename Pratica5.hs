@@ -81,7 +81,6 @@ fatorial n = aux
 -- ===============================
 -- ===============================
 --2
--- Exercício 2:
 --a
 bissextoLet :: Int -> Bool
 bissextoLet ano =
@@ -112,11 +111,7 @@ type EmprestimoLet = (String, String, DataLet, DataLet, String)
 type EmprestimosLet = [EmprestimoLet]
 
 bdEmprestimoLet :: EmprestimosLet
-bdEmprestimoLet =
-  [ ("H123C9", "BSI945", (12, 9, 2009), (20, 09, 2009), "aberto"),
-    ("L433C5", "BCC021", (01, 9, 2009), (10, 09, 2009), "encerrado"),
-    ("M654C3", "BCC008", (04, 9, 2009), (15, 09, 2009), "aberto")
-  ]
+bdEmprestimo = [("H123C9", "BSI945", (12, 9, 2009), (20, 09, 2009), "aberto"),("L433C5", "BCC021", (01, 9, 2009), (10, 09, 2009), "encerrado"),("M654C3", "BCC008", (04, 9, 2009), (15, 09, 2009), "aberto")]
 
 procedeLet :: DataLet -> DataLet -> Bool
 procedeLet (d, m, a) (d2, m2, a2) =
