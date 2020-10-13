@@ -1,0 +1,22 @@
+data ArvoreBinInt = Nulo | No Int ArvoreBinInt ArvoreBinInt deriving (Show,Eq)
+
+arvEx :: ArvoreBinInt
+arvEx = (No 7 (No 3 (No 1 Nulo Nulo) (No 6 (No 4 Nulo Nulo) Nulo)) (No 10 Nulo (No 14 Nulo Nulo)))
+
+
+somapares :: ArvoreBinInt -> (Int,Int)
+somapares lst = (gerapar (internos lst), gerapar (folhas lst))
+
+
+internos :: ArvoreBinInt -> [Int]
+internos Nulo = []
+internos (No _ Nulo Nulo) = []
+internos (No x esq dir) = (x : internos esq) ++ internos dir
+
+gerapar :: [Int] -> Int
+gerapar lst = sum [x | x<-lst, even x]
+
+folhas :: ArvoreBinInt -> [Int]
+folhas Nulo = []
+folhas (No x Nulo Nulo) = [x]
+folhas (No x esq dir) = (folhas esq) ++ folhas dir
