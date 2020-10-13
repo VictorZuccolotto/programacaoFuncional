@@ -1,3 +1,47 @@
+--EX4
+somat :: Int -> Int
+somat n = foldr1 (+) (map (^3) [0..n])
+
+produt :: Int -> Int
+produt n = foldr1 (*) (map (^3) [1..n])
+
+verifica::(Int, Int)->Int
+verifica (x, y) = if y>x then x+y else 0
+
+pares1::[(Int, Int)]->[Int]
+pares1 lst = filter (/=0) (map(verifica) lst)
+
+pares2::[(Int, Int)]->[Int]
+pares2 lst =  (map(verifica2) lst)
+
+verifica2::(Int, Int)->Int
+verifica2 (x, y) = x^y
+
+totaliza1::[(Int, Int)]->Int
+totaliza1 lst = foldr1 (+) (map(verifica3) lst)
+
+verifica3::(Int, Int)->Int
+verifica3 (x, y) = if y>x then x*y else 0
+
+totaliza2::[(Int, Int)]->Int
+totaliza2 lst = foldr1 (+) (map(verifica3) lst)
+
+triplas1 :: [(Int,Int,Int)] -> [Int]
+triplas1 lst = filter (/=0) (map(verifica4) lst)
+
+verifica4::(Int,Int,Int)->Int
+verifica4 (x,y,z) = if x>y && y<z then x*y*z else 0
+
+triplas2 :: [(Int,Int,Int)] -> [Int]
+triplas2 lst = filter (/=0) (map(verifica5) lst)
+
+verifica5::(Int,Int,Int)->Int
+verifica5 (x,y,z) = if mod (x+y+z) 2 /= 0 then x+y+z else 0
+
+--Ex5
+
+
+--Ex6
 data ArvoreBinInt = Nulo | No Int ArvoreBinInt ArvoreBinInt deriving (Show,Eq)
 
 arvEx :: ArvoreBinInt
@@ -5,7 +49,7 @@ arvEx = (No 7 (No 3 (No 1 Nulo Nulo) (No 6 (No 4 Nulo Nulo) Nulo)) (No 10 Nulo (
 
 
 somapares :: ArvoreBinInt -> (Int,Int)
-somapares lst = (gerapar (internos lst), gerapar (folhas lst))
+somapares lst = (gerapar (folhas lst),gerapar (internos lst))
 
 
 internos :: ArvoreBinInt -> [Int]
@@ -20,3 +64,5 @@ folhas :: ArvoreBinInt -> [Int]
 folhas Nulo = []
 folhas (No x Nulo Nulo) = [x]
 folhas (No x esq dir) = (folhas esq) ++ folhas dir
+
+--EX7
