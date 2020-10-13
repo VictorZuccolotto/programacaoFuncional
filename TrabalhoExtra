@@ -43,6 +43,23 @@ remove_maior (h:t) x
   (n1,n2,c) = remove_maior t x
   (n3,n4,b) = remove_maior t h
   
+--EX3
+quick :: (Ord a) => [a] -> [a]
+quick [] = []
+quick (s:xs) =
+ let (left, right) = divide s xs
+ in (quick left) ++ [s] ++ (quick right)
+  
+divide :: (Ord a) => a -> [a] -> ([a], [a])
+divide _ [] = ([], [])
+divide s [x] = if x > s then ([x], []) else ([], [x])
+divide s (x:xs)
+ | x > s = addLeft x (divide s xs)
+ | otherwise = addRight x (divide s xs)
+ where
+  addLeft a (b, c) = (a : b, c)
+  addRight a (b, c) = (b, a : c)
+  
 --EX4
 somat :: Int -> Int
 somat n = foldr1 (+) (map (^3) [0..n])
@@ -84,7 +101,22 @@ verifica5::(Int,Int,Int)->Int
 verifica5 (x,y,z) = if mod (x+y+z) 2 /= 0 then x+y+z else 0
 
 --Ex5
+data ArvoreBinInt = Nulo | No Int ArvoreBinInt ArvoreBinInt
+ deriving (Show,Eq)
+arvEx::ArvoreBinInt
+arvEx = (No 2 (No 7 (No 12 Nulo Nulo) (No 6 (No 5 Nulo Nulo) (No 11 Nulo Nulo) ) )
+ (No 15 Nulo (No 9 (No 4 Nulo Nulo) Nulo) ) ) 
 
+
+buscaPos ::Int -> ArvoreBinInt -> (Bool,Int)
+buscaPos _ Nulo = (False,0)
+buscaPos a (No x sqr dir) = (b,c)
+ where
+  (bE,cE) = buscaPos a sqr
+  (bD,cD) = buscaPos a dir
+  (bN,cN) = (x==a,1)
+  b = bE || bD || bN
+  c = cE + cD + cN
 
 --Ex6
 data ArvoreBinInt = Nulo | No Int ArvoreBinInt ArvoreBinInt deriving (Show,Eq)
