@@ -94,3 +94,71 @@ folhas (No x Nulo Nulo) = [x]
 folhas (No x esq dir) = (folhas esq) ++ folhas dir
 
 --EX7
+data Pagamento = Dinheiro | Cartao | Boleto deriving (Show, Ord, Eq)
+
+data Vol = Baixo | Medio | Alto
+ deriving (Show, Ord, Eq)
+
+data Cliente = Clnt String Int Int Pagamento Vol deriving (Show , Ord , Eq)
+
+
+lista :: [Cliente]
+lista = [
+    (Clnt "Alexandre" 1 12 (Dinheiro) (Baixo)),
+    (Clnt "Breno" 2 12 (Dinheiro) (Baixo)),
+    (Clnt "Caio" 3 12 (Dinheiro) (Baixo)),
+    (Clnt "Daniel" 4 11 (Dinheiro) (Medio)),
+    (Clnt "Eduardo" 5 11 (Dinheiro) (Medio)),
+    (Clnt "Felipe" 6 11 (Dinheiro) (Medio)),
+    (Clnt "Guilherme" 7 10 (Dinheiro) (Alto)),
+    (Clnt "Henrique" 8 10 (Dinheiro) (Alto)),
+    (Clnt "Isaac" 9 10 (Dinheiro) (Alto)),
+    (Clnt "João" 10 9 (Cartao) (Baixo)),
+    (Clnt "Kaique" 11 9 (Cartao) (Baixo)),
+    (Clnt "Leonardo" 12 9 (Cartao) (Baixo)),
+    (Clnt "Murilo" 13 8 (Cartao) (Medio)),
+    (Clnt "Nathan" 14 8 (Cartao) (Medio)),
+    (Clnt "Otávio" 15 8 (Cartao) (Medio)),
+    (Clnt "Pietro" 16 7 (Cartao) (Alto)),
+    (Clnt "Rafael" 17 7 (Cartao) (Alto)),
+    (Clnt "Samuel" 18 7 (Cartao) (Alto)),
+    (Clnt "Thiago" 19 6 (Boleto) (Baixo)),
+    (Clnt "Vitor" 20 6 (Boleto) (Baixo)),
+    (Clnt "Yago" 21 6 (Boleto) (Baixo)),
+    (Clnt "Enzo" 22 5 (Boleto) (Medio)),
+    (Clnt "Pedro" 23 5 (Boleto) (Medio)),
+    (Clnt "Arthur" 24 5 (Boleto) (Medio)),
+    (Clnt "Gina" 25 4 (Boleto) (Alto)),
+    (Clnt "Mirella" 26 4 (Boleto) (Alto)),
+    (Clnt "Elisa" 27 4 (Boleto) (Alto))
+    ]
+
+  
+msort :: [Cliente]->[Cliente]
+msort [] = []
+msort [x] = [x]
+msort xs = merge (msort ys) (msort zs)
+ where
+  (ys,zs) = divide xs
+
+divide ::[Cliente] -> ([Cliente],[Cliente])
+divide [] = ([],[])
+divide [x] = ([x],[])
+divide (x:y:t)  = ((x:xs),(y:ys))
+ where
+  (xs,ys) = divide t
+
+merge :: [Cliente]->[Cliente]->[Cliente]
+merge xs [] = xs
+merge [] xs = xs
+merge (x:xs) (y:ys)
+ | compara x y = x:(merge xs (y:ys))
+ | otherwise = y: (merge (x:xs) ys)
+ where 
+  compara (Clnt _ _ _ _ (Medio)) (Clnt _ _ _ _ (Alto)) = True
+  compara (Clnt _ _ _ _ (Baixo)) (Clnt _ _ _ _ (Medio)) = True
+  compara (Clnt _ _ _ _ (Baixo)) (Clnt _ _ _ _ (Alto)) = True
+  compara (Clnt _ _ _ (Dinheiro) _) (Clnt _ _ _ (Cartao) _) = True
+  compara (Clnt _ _ _ (Dinheiro) _) (Clnt _ _ _ (Boleto) _) = True
+  compara (Clnt _ _ _ (Cartao) _) (Clnt _ _ _ (Boleto) _) = True
+  compara _ _ = False
