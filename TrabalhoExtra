@@ -26,6 +26,23 @@ troca ((x:y:zs), n) = if x < y then
   addInitList (troca ((y:zs), n)) x
     where
       addInitList (list, n) a = (a:list, n)
+      
+--EX2
+selectionsort :: [Integer]->[Integer]
+selectionsort [] = []
+selectionsort (h:t) = x : selectionsort a
+ where
+  (n1,n2,x) = remove_maior t h
+  a = n1++n2
+remove_maior :: [Integer] -> Integer -> ([Integer],[Integer],Integer)
+remove_maior [] x = ([],[],x)
+remove_maior (h:t) x 
+ | x > h = (n1,[h]++n2,c)
+ | otherwise = ([x]++n3,n4,b)
+ where
+  (n1,n2,c) = remove_maior t x
+  (n3,n4,b) = remove_maior t h
+  
 --EX4
 somat :: Int -> Int
 somat n = foldr1 (+) (map (^3) [0..n])
