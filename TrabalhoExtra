@@ -1,3 +1,31 @@
+bolha :: Ord a => [a] -> [a]
+bolha [] = []
+bolha lst = bolhaOrd lst (length lst)
+
+bolhaOrd :: Ord a => [a] -> Int -> [a]
+bolhaOrd lst 0 = lst
+bolhaOrd lst n = do
+    if count /= 0 then
+        (bolhaOrd body (n-1)) ++ last
+        else list
+        where
+            (list, count) = troca (lst, 0)
+            last = splitLast list
+            body = splitBody list
+            
+splitBody :: [a] -> [a]
+splitBody lst = take (length lst - 1) lst
+
+splitLast :: [a] -> [a]
+splitLast lst = drop (length lst - 1) lst
+
+troca :: Ord a => ([a], Int) -> ([a], Int)
+troca ([x], n) = ([x], n)
+troca ((x:y:zs), n) = if x < y then
+  addInitList (troca ((x:zs), n+1)) y else
+  addInitList (troca ((y:zs), n)) x
+    where
+      addInitList (list, n) a = (a:list, n)
 --EX4
 somat :: Int -> Int
 somat n = foldr1 (+) (map (^3) [0..n])
